@@ -40,6 +40,8 @@ threshold = Slider(title="Threshold Image", value=0, start=0, end=255, step=1)
 
 val=''
 
+##########################RGB to Grayscale Conversion###############################################
+
 def callback(event):
     image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
@@ -54,6 +56,10 @@ def callback(event):
     )
 
 btn1.on_click(callback)
+
+######################################################################################################
+
+##################################Gaussian Smoothening#################################################
 
 def update_data(attrname, old, new):
    k=gsmooth.value
@@ -72,6 +78,10 @@ def update_data(attrname, old, new):
 
 gsmooth.on_change('value', update_data)
 
+########################################################################################################
+
+################################Median Filter###########################################################
+
 def callback1(event):
     image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
     median = cv2.medianBlur(image,5)
@@ -87,12 +97,15 @@ def callback1(event):
 
 btn2.on_click(callback1)
 
+########################################################################################################
+
+##################################Threshold Image#######################################################
+
 def update_data1(attrname, old, new):
    k=threshold.value
    print("Threshold : ",k)
    img = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
    ret,thresh = cv2.threshold(img,k,255,cv2.THRESH_BINARY)
-   #thresh = cv2.adaptiveThreshold(img, 255, cv2.ADAPTIVE_THRESH_GAUSSIAN_C, cv2.THRESH_BINARY, 11, 2)
    os.chdir(directory)
    cv2.imwrite('thresh.jpeg', thresh)
    cv2.imwrite('image1.jpeg', thresh)
@@ -104,6 +117,10 @@ def update_data1(attrname, old, new):
    )
 
 threshold.on_change('value', update_data1)
+
+#########################################################################################################
+
+############################Reset Image###############################################################
 
 def callback2(event):
     image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image.jpeg')
@@ -117,6 +134,10 @@ def callback2(event):
     )
 
 btn3.on_click(callback2)
+
+###############################################################################################
+
+#######################Image File Upload##############################
 
 def upload_data(attr, old, new):
     print("File Uploaded successfully")
@@ -139,6 +160,8 @@ def upload_data(attr, old, new):
 
 file_input = FileInput(accept=".jpeg")
 file_input.on_change('value', upload_data)
+
+########################################################################
 
 btn4 = Button(label="Download Image", button_type="success")
 btn4.js_on_click(CustomJS(args=dict(source=source), code="""
