@@ -16,8 +16,8 @@ from skimage.io import imsave, imread
 x_range = (-20, -10)
 y_range = (20, 30)
 
-directory = 'C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/'
-directory1 = 'C:/Users/ASUS/PycharmProjects/Bokeh/'
+directory = '../../Bokeh/server_folder/static/'
+directory1 = '../../Bokeh/'
 
 p = figure(x_range=x_range, y_range=y_range, tools="crosshair,pan,reset,save,wheel_zoom")
 source = ColumnDataSource()
@@ -43,7 +43,7 @@ val=''
 ##########################RGB to Grayscale Conversion###############################################
 
 def callback(event):
-    image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
+    image = cv2.imread('../../Bokeh/server_folder/static/image1.jpeg')
     gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
     os.chdir(directory)
     cv2.imwrite('gray.jpeg', gray)
@@ -64,7 +64,7 @@ btn1.on_click(callback)
 def update_data(attrname, old, new):
    k=gsmooth.value
    print("Gaussian filter : ",k)
-   img = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
+   img = cv2.imread('../../Bokeh/server_folder/static/image1.jpeg')
    gaussian = cv2.GaussianBlur(img, (k, k), 0)
    os.chdir(directory)
    cv2.imwrite('gaussian.jpeg', gaussian)
@@ -83,7 +83,7 @@ gsmooth.on_change('value', update_data)
 ################################Median Filter###########################################################
 
 def callback1(event):
-    image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
+    image = cv2.imread('../../Bokeh/server_folder/static/image1.jpeg')
     median = cv2.medianBlur(image,5)
     os.chdir(directory)
     cv2.imwrite('median.jpeg', median)
@@ -104,7 +104,7 @@ btn2.on_click(callback1)
 def update_data1(attrname, old, new):
    k=threshold.value
    print("Threshold : ",k)
-   img = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image1.jpeg')
+   img = cv2.imread('../../Bokeh/server_folder/static/image1.jpeg')
    ret,thresh = cv2.threshold(img,k,255,cv2.THRESH_BINARY)
    os.chdir(directory)
    cv2.imwrite('thresh.jpeg', thresh)
@@ -123,7 +123,7 @@ threshold.on_change('value', update_data1)
 ############################Reset Image###############################################################
 
 def callback2(event):
-    image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/image.jpeg')
+    image = cv2.imread('../../Bokeh/server_folder/static/image.jpeg')
     os.chdir(directory)
     cv2.imwrite('image1.jpeg', image)
     os.chdir(directory1)
