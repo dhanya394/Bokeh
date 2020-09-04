@@ -30,11 +30,6 @@ source = ColumnDataSource(data=dict(
 p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1] - x_range[0], h=y_range[1] - y_range[0],
                 source=source)
 
-'''image = cv2.imread('C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/flower.jpeg')
-os.chdir(directory)
-cv2.imwrite('image1.jpeg', image)
-os.chdir(directory1)'''
-
 btn1 = Button(label="RGB2Gray", button_type="success")
 btn2 = Button(label="Median Filter", button_type="success")
 btn3 = Button(label="Reset Image", button_type="success")
@@ -57,7 +52,6 @@ def callback(event):
     source.data = dict(
         url=[url]
     )
-    #p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1]-x_range[0], h=y_range[1]-y_range[0], source=source)
 
 btn1.on_click(callback)
 
@@ -75,7 +69,6 @@ def update_data(attrname, old, new):
    source.data = dict(
        url=[url]
    )
-   #p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1]-x_range[0], h=y_range[1]-y_range[0], source=source)
 
 gsmooth.on_change('value', update_data)
 
@@ -91,7 +84,6 @@ def callback1(event):
     source.data = dict(
         url=[url]
     )
-    #p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1]-x_range[0], h=y_range[1]-y_range[0], source=source)
 
 btn2.on_click(callback1)
 
@@ -110,7 +102,6 @@ def update_data1(attrname, old, new):
    source.data = dict(
        url=[url]
    )
-   #p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1]-x_range[0], h=y_range[1]-y_range[0], source=source)
 
 threshold.on_change('value', update_data1)
 
@@ -124,21 +115,12 @@ def callback2(event):
     source.data = dict(
         url=[url]
     )
-    #p.image_url(url='url', x=x_range[0], y=y_range[1], w=x_range[1]-x_range[0], h=y_range[1]-y_range[0], source=source)
 
 btn3.on_click(callback2)
-
-'''
-def callback3(event):
-    #export_png(p, filename="C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/downloaded_image.jpeg");
-    export_png(p, filename="downloaded_image.jpeg");
-
-btn4.on_click(callback3)'''
 
 def upload_data(attr, old, new):
     print("File Uploaded successfully")
     print(type(file_input.filename))
-    #val = 'C:/Users/ASUS/PycharmProjects/Bokeh/server_folder/static/' + file_input.filename
     decoded = b64decode(file_input.value)
     f = io.BytesIO(decoded)
     image = Image.open(f)
@@ -176,4 +158,3 @@ doc.add_root(row(column(file_input,p) , column(btn1,gsmooth,btn2,threshold,btn3,
 curdoc.title = "Image Processing Demo"
 
 #bokeh serve server_folder --show
-#bokeh serve --address 192.168.1.100 --port 5001 --allow-websocket-origin=192.168.1.101:5001 --allow-websocket-origin=192.168.1.100:5001 server_folder --show
